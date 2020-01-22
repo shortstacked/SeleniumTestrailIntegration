@@ -31,7 +31,7 @@ namespace NUnitTestProject1
         public void Setup()
         {
             var options = new ChromeOptions();
-            options.AddArgument("--disable - dev - shm - usage");
+            options.AddArgument("--disable-dev-shm-usage");
             WebDriver = new ChromeDriver(options);
 
         }
