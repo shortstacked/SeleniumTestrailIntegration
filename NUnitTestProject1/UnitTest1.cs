@@ -32,6 +32,7 @@ namespace NUnitTestProject1
         {
             var options = new ChromeOptions();
             options.AddArgument("--disable-dev-shm-usage");
+            options.AddArgument("headless");
             WebDriver = new ChromeDriver(options);
 
         }
