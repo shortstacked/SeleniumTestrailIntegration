@@ -12,16 +12,16 @@ namespace NUnitTestProject1
     {
         public static IWebDriver WebDriver;
         public static TestRailClient Client;
-        private static string _url = "";
-        private static string _user = "";
-        private static string _password = "";
+        private static readonly string Url = Environment.GetEnvironmentVariable("TESTRAIL_URL");
+        private static readonly string User = Environment.GetEnvironmentVariable("TESTRAIL_USER");
+        private static readonly string Password = Environment.GetEnvironmentVariable("TESTRAIL_PASSWORD");
         private ulong _projectId = 2;
         private ulong _runId;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            Client = new TestRailClient(_url, _user, _password);
+            Client = new TestRailClient(Url, User, Password);
             var commandResult = Client.AddRun(_projectId, 2, "Selenium Test Run " + DateTime.UtcNow.Ticks, "Selenium Test Run example", 1);
             Console.WriteLine(commandResult.Value);
             _runId = commandResult.Value;
@@ -30,7 +30,10 @@ namespace NUnitTestProject1
         [SetUp]
         public void Setup()
         {
-            WebDriver = new ChromeDriver();
+            var options = new ChromeOptions();
+            options.AddArgument("--disable - dev - shm - usage");
+            WebDriver = new ChromeDriver(options);
+
         }
 
         [Test(Description = "C3")]
